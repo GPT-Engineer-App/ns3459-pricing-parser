@@ -48,7 +48,7 @@ const Index = () => {
               </Tr>
             </Thead>
             <Tbody>
-              {parsedData.NS3459.Pristilbud.Poster.Post.map((post, index) => (
+              {parsedData.NS3459.Pristilbud.Poster.Post.filter((post) => post.Postnrdeler.Postnrdel.some((nrdel) => nrdel.Type === "Type1" && nrdel.Kode === "36")).map((post, index) => (
                 <Tr key={index}>
                   <Td>{post.Postnr}</Td>
                   <Td>{post.Tekst.Uformatert}</Td>

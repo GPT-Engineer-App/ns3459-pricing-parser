@@ -49,8 +49,8 @@ const Index = () => {
           <Table variant="simple">
             <Thead>
               <Tr>
-                <Th>Chapter</Th>
-                <Th>Description</Th>
+                <Th>Postnr.</Th>
+                <Th>Beskrivelse</Th>
                 <Th>Mengderegel</Th>
                 <Th>Enhet</Th>
                 <Th>Mengde</Th>

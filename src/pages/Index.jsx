@@ -40,9 +40,9 @@ const Index = () => {
       <VStack spacing={4} align="stretch" mt={10}>
         <Image src="/lindab.png" alt="Lindab Logo" boxSize="100px" alignSelf="flex-start" />
         <Heading as="h1" size="xl">
-          NS3459 Pricing Converter 2
+          Lindab programanbud hjelper (NS3459)
         </Heading>
-        <Text>Upload your NS3459 XML file to view the pricing details.</Text>
+        <Text>Last opp din NS3459 XML-fil for å se prisdetaljene.</Text>
         <Input type="file" accept=".xml" onChange={handleFileChange} />
         {parsedData && <p>{parsedData.NS3459.Pristilbud.Generelt.ProgramNavn}</p>}
         {parsedData && (

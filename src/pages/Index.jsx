@@ -38,12 +38,22 @@ const Index = () => {
   return (
     <Container maxW="container.xl">
       <VStack spacing={4} align="stretch" mt={10}>
-      <Image src="/lindab.png" alt="Lindab Logo" boxSize="160px" objectFit="contain" alignSelf="flex-start" className="no-print" />{" "}
+        <Image src="/lindab.png" alt="Lindab Logo" boxSize="160px" objectFit="contain" alignSelf="flex-start" className="no-print" />{" "}
         <Heading as="h1" size="xl">
           Lindab programanbud hjelper (NS3459)
         </Heading>
         <Text>Last opp din NS3459 XML-fil for å se prisdetaljer.</Text>
         <Input type="file" accept=".xml" onChange={handleFileChange} />
+        {parsedData && (
+          <VStack align="stretch" mt={4}>
+            <Text fontWeight="bold">Generell Informasjon:</Text>
+            <Text>Dato: {parsedData.NS3459.Pristilbud.Generelt.Dato}</Text>
+            <Text>Avsender: {parsedData.NS3459.Pristilbud.Generelt.Avsender.Person.Navn}</Text>
+            <Text>Firma: {parsedData.NS3459.Pristilbud.Generelt.Avsender.Firma.Navn}</Text>
+            <Text>Program Navn: {parsedData.NS3459.Pristilbud.Generelt.ProgramNavn}</Text>
+            <Text>Program Versjon: {parsedData.NS3459.Pristilbud.Generelt.ProgramVersjon}</Text>
+          </VStack>
+        )}
         {parsedData && <p>{parsedData.NS3459.Pristilbud.Generelt.ProgramNavn}</p>}
         {parsedData && (
           <Table variant="simple">

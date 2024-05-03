@@ -69,21 +69,23 @@ const Index = () => {
               </Tr>
             </Thead>
             <Tbody>
-              {parsedData.NS3459?.Pristilbud?.ProsjektNS?.Poster?.Post.map((post, index) => (
-                <Tr key={index}>
+              {parsedData.NS3459?.Pristilbud?.ProsjektNS?.Poster?.Post.map((post, index) => [
+                <Tr key={`data-${index}`}>
                   <Td>{post.Postnr}</Td>
                   <Td>{post.Tekst?.Uformatert}</Td>
                   <Td>{post.Prisinfo?.Mengderegel}</Td>
                   <Td>{post.Prisinfo?.Enhet}</Td>
                   <Td>{post.Prisinfo?.Mengde}</Td>
-                  <Td>
+                </Tr>,
+                <Tr key={`input-${index}`} bg={index % 2 === 0 ? "gray.100" : "white"}>
+                  <Td colSpan={5}>
                     <Input placeholder="Item ID" size="sm" />
                   </Td>
-                  <Td>
+                  <Td colSpan={2}>
                     <Input placeholder="Quantity" size="sm" type="number" />
                   </Td>
-                </Tr>
-              ))}
+                </Tr>,
+              ])}
             </Tbody>
           </Table>
         )}

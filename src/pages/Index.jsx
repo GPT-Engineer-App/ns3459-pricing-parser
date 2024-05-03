@@ -1,7 +1,6 @@
 import React, { useState } from "react";
-import { Button, Input, VStack, Text, Heading, Table, Thead, Tbody, Tr, Th, Td, Container, Alert, AlertIcon } from "@chakra-ui/react";
-import { XMLParser } from 'fast-xml-parser';
-
+import { Button, Input, VStack, Text, Heading, Table, Thead, Tbody, Tr, Th, Td, Container, Alert, AlertIcon, Image } from "@chakra-ui/react";
+import { XMLParser } from "fast-xml-parser";
 
 const Index = () => {
   const [file, setFile] = useState(null);
@@ -39,12 +38,13 @@ const Index = () => {
   return (
     <Container maxW="container.xl">
       <VStack spacing={4} align="stretch" mt={10}>
+        <Image src="/lindab.png" alt="Lindab Logo" boxSize="100px" alignSelf="flex-start" />
         <Heading as="h1" size="xl">
           NS3459 Pricing Converter 2
         </Heading>
         <Text>Upload your NS3459 XML file to view the pricing details.</Text>
         <Input type="file" accept=".xml" onChange={handleFileChange} />
-        {parsedData && (<p>{parsedData.NS3459.Pristilbud.Generelt.ProgramNavn}</p>)}
+        {parsedData && <p>{parsedData.NS3459.Pristilbud.Generelt.ProgramNavn}</p>}
         {parsedData && (
           <Table variant="simple">
             <Thead>

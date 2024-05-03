@@ -35,15 +35,41 @@ const Index = () => {
     }
   };
 
+  const exportToXML = () => {
+    const itemsXml = parsedData.NS3459.Pristilbud.ProsjektNS.Poster.Post.filter((post) => post.ItemId && post.Quantity)
+      .map(
+        (post) => `
+        <Item>
+          <Quantity>${post.Quantity}</Quantity>
+          <ItemId>${post.ItemId}</ItemId>
+          <GoodsMark>${post.Postnr}</GoodsMark>
+        </Item>
+      `,
+      )
+      .join("");
+
+    const xml = `<?xml version="1.0" encoding="iso-8859-1"?>
+<OrderLinesImport>
+  <Version>1.0</Version>
+  <Filetype>Excel</Filetype>
+  <Items>${itemsXml}</Items>
+</OrderLinesImport>`;
+
+    console.log(xml);
+  };
+
   return (
     <Container maxW="container.xl">
       <VStack spacing={4} align="stretch" mt={10}>
-        <Image src="/lindab.png" alt="Lindab Logo" boxSize="160px" objectFit="contain" alignSelf="flex-start" className="no-print" />{" "}
+        <Image src="/lindab.png" alt="Lindab Logo" boxSize="160px" objectFit="contain" alignSelf="flex-start" className="no-print" />
         <Heading as="h1" size="xl">
           Lindab programanbud hjelper (NS3459)
         </Heading>
         <Text>Last opp din NS3459 XML-fil for å se prisdetaljer.</Text>
         <Input type="file" accept=".xml" onChange={handleFileChange} />
+        <Button onClick={exportToXML} colorScheme="blue">
+          Export to XML
+        </Button>
         {parsedData && (
           <VStack align="stretch" mt={4}>
             <Text fontWeight="bold">Generell Informasjon:</Text>

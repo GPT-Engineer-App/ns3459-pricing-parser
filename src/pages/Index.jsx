@@ -5,6 +5,7 @@ import { XMLParser } from "fast-xml-parser";
 const Index = () => {
   const [file, setFile] = useState(null);
   const [parsedData, setParsedData] = useState(null);
+  const [inputs, setInputs] = useState({});
   const [error, setError] = useState("");
 
   const handleFileChange = async (event) => {
@@ -36,16 +37,19 @@ const Index = () => {
   };
 
   const exportToXML = () => {
-    const itemsXml = parsedData.NS3459.Pristilbud.ProsjektNS.Poster.Post.filter((post) => post.ItemId && post.Quantity)
-      .map(
-        (post) => `
-        <Item>
-          <Quantity>${post.Quantity}</Quantity>
-          <ItemId>${post.ItemId}</ItemId>
-          <GoodsMark>${post.Postnr}</GoodsMark>
-        </Item>
-      `,
-      )
+    const itemsXml = Object.keys(inputs)
+      .filter((key) => key.startsWith("item-") && inputs[key] && inputs[`quantity-${key.split("-")[1]}`])
+      .map((key) => {
+        const index = key.split("-")[1];
+        const post = parsedData.NS3459.Pristilbud.ProsjektNS.Poster.Post[index];
+        return `
+          <Item>
+            <Quantity>${inputs[`quantity-${index}`]}</Quantity>
+            <ItemId>${inputs[key]}</ItemId>
+            <GoodsMark>${post.Postnr}</GoodsMark>
+          </Item>
+        `;
+      })
       .join("");
 
     const xml = `<?xml version="1.0" encoding="iso-8859-1"?>
@@ -105,10 +109,10 @@ const Index = () => {
                 </Tr>,
                 <Tr key={`input-${index}`} bg={index % 2 === 0 ? "gray.100" : "white"}>
                   <Td colSpan={5}>
-                    <Input placeholder="Item ID" size="sm" />
+                    <Input placeholder="Item ID" size="sm" value={inputs[`item-${index}`] || ""} onChange={(e) => setInputs({ ...inputs, [`item-${index}`]: e.target.value })} />
                   </Td>
                   <Td colSpan={2}>
-                    <Input placeholder="Quantity" size="sm" type="number" />
+                    <Input placeholder="Quantity" size="sm" type="number" value={inputs[`quantity-${index}`] || ""} onChange={(e) => setInputs({ ...inputs, [`quantity-${index}`]: e.target.value })} />
                   </Td>
                 </Tr>,
               ])}

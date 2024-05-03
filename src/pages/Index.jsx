@@ -38,7 +38,7 @@ const Index = () => {
   return (
     <Container maxW="container.xl">
       <VStack spacing={4} align="stretch" mt={10}>
-        <Image src="/lindab.png" alt="Lindab Logo" boxSize="100px" alignSelf="flex-start" />
+      <Image src="/lindab.png" alt="Lindab Logo" boxSize="160px" objectFit="contain" alignSelf="flex-start" className="no-print" />{" "}
         <Heading as="h1" size="xl">
           Lindab programanbud hjelper (NS3459)
         </Heading>

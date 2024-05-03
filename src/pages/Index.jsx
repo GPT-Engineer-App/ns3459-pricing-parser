@@ -59,7 +59,15 @@ const Index = () => {
   <Items>${itemsXml}</Items>
 </OrderLinesImport>`;
 
-    console.log(xml);
+    const blob = new Blob([xml], { type: "text/xml" });
+    const url = URL.createObjectURL(blob);
+    const link = document.createElement("a");
+    link.href = url;
+    link.download = "exported_data.xml";
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+    URL.revokeObjectURL(url);
   };
 
   return (

@@ -68,27 +68,13 @@ const Index = () => {
             </Thead>
             <Tbody>
               {parsedData.NS3459?.Pristilbud?.ProsjektNS?.Poster?.Post.map((post, index) => (
-                <>
-                  {post.Egenskaper && (
-                    <Tr>
-                      <Td colSpan="5">
-                        <Text fontWeight="bold">Kapittel: {post.Postnr}</Text>
-                        {post.Egenskaper.Egenskap.map((egenskap, idx) => (
-                          <Text key={idx}>
-                            {egenskap.Navn}: {egenskap.Verdi}
-                          </Text>
-                        ))}
-                      </Td>
-                    </Tr>
-                  )}
-                  <Tr key={index}>
-                    <Td>{post.Postnr}</Td>
-                    <Td>{post.Tekst?.Uformatert}</Td>
-                    <Td>{post.Prisinfo?.Mengderegel}</Td>
-                    <Td>{post.Prisinfo?.Enhet}</Td>
-                    <Td>{post.Prisinfo?.Mengde}</Td>
-                  </Tr>
-                </>
+                <Tr key={index}>
+                  <Td>{post.Postnr}</Td>
+                  <Td>{post.Tekst?.Uformatert}</Td>
+                  <Td>{post.Prisinfo?.Mengderegel}</Td>
+                  <Td>{post.Prisinfo?.Enhet}</Td>
+                  <Td>{post.Prisinfo?.Mengde}</Td>
+                </Tr>
               ))}
             </Tbody>
           </Table>

@@ -64,6 +64,8 @@ const Index = () => {
                 <Th>Mengderegel</Th>
                 <Th>Enhet</Th>
                 <Th>Mengde</Th>
+                <Th>Item ID</Th>
+                <Th>Quantity</Th>
               </Tr>
             </Thead>
             <Tbody>
@@ -74,6 +76,12 @@ const Index = () => {
                   <Td>{post.Prisinfo?.Mengderegel}</Td>
                   <Td>{post.Prisinfo?.Enhet}</Td>
                   <Td>{post.Prisinfo?.Mengde}</Td>
+                  <Td>
+                    <Input placeholder="Item ID" size="sm" />
+                  </Td>
+                  <Td>
+                    <Input placeholder="Quantity" size="sm" type="number" />
+                  </Td>
                 </Tr>
               ))}
             </Tbody>

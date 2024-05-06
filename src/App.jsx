@@ -1,13 +1,11 @@
-import { Route, BrowserRouter as Router, Routes, Navigate } from "react-router-dom";
+import { Route, BrowserRouter as Router, Routes } from "react-router-dom";
 import Index from "./pages/Index.jsx";
-import Login from "./pages/Login.jsx";
 
 function App() {
   return (
     <Router>
       <Routes>
-        <Route path="/" element={localStorage.getItem("auth") ? <Index /> : <Navigate to="/login" />} />
-        <Route path="/login" element={<Login />} />
+        <Route exact path="/" element={<Index />} />
       </Routes>
     </Router>
   );

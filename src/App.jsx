@@ -1,23 +1,11 @@
-import { Route, BrowserRouter as Router, Routes, useNavigate } from "react-router-dom";
-import { useEffect } from "react";
+import { Route, BrowserRouter as Router, Routes } from "react-router-dom";
 import Index from "./pages/Index.jsx";
-import Login from "./pages/Login.jsx";
 
 function App() {
-  const navigate = useNavigate();
-
-  useEffect(() => {
-    const authToken = sessionStorage.getItem("auth_token");
-    if (!authToken) {
-      window.location.href = "/login";
-    }
-  }, [navigate]);
-
   return (
     <Router>
       <Routes>
-        <Route path="/" element={<Index />} />
-        <Route path="/login" element={<Login />} />
+        <Route exact path="/" element={<Index />} />
       </Routes>
     </Router>
   );

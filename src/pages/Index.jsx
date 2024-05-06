@@ -108,8 +108,14 @@ const Index = () => {
         </Button>
         <Input placeholder="Email" value={email} onChange={(e) => setEmail(e.target.value)} />
         <Input placeholder="Password" type="password" value={password} onChange={(e) => setPassword(e.target.value)} />
-        <Button onClick={() => handleLogin(email, password)} colorScheme="teal">
-          Login
+        <Button
+          onClick={() => {
+            localStorage.removeItem("auth");
+            navigate("/login");
+          }}
+          colorScheme="red"
+        >
+          Logout
         </Button>
         {parsedData && (
           <VStack align="stretch" mt={4}>

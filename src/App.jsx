@@ -7,9 +7,9 @@ function App() {
   const navigate = useNavigate();
 
   useEffect(() => {
-    const authToken = sessionStorage.getItem('auth_token');
+    const authToken = sessionStorage.getItem("auth_token");
     if (!authToken) {
-      navigate('/login');
+      window.location.href = "/login";
     }
   }, [navigate]);
 

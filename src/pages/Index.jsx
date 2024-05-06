@@ -23,9 +23,12 @@ const Index = () => {
             allowBooleanAttributes: true,
           });
           const result = parser.parse(xml);
-          await setParsedData(result); // Adjust this line based on how you process the XML
+
+          // Determine if the root is Prisforesporsel or Pristilbud
+          const rootKey = result.NS3459.Prisforesporsel ? "Prisforesporsel" : "Pristilbud";
+
+          await setParsedData(result.NS3459[rootKey]); // Use the determined root key
           console.log(result);
-          console.log(parsedData?.NS3459?.Pristilbud?.ProsjektNS?.Poster);
           setError("");
         } catch (err) {
           console.log(err);
@@ -41,7 +44,7 @@ const Index = () => {
       .filter((key) => key.startsWith("item-") && inputs[key] && inputs[`quantity-${key.split("-")[1]}`])
       .map((key) => {
         const index = key.split("-")[1];
-        const post = parsedData.NS3459.Pristilbud.ProsjektNS.Poster.Post[index];
+        const post = parsedData.ProsjektNS.Poster.Post[index];
         return `
           <Item>
             <Quantity>${inputs[`quantity-${index}`]}</Quantity>
@@ -85,14 +88,14 @@ const Index = () => {
         {parsedData && (
           <VStack align="stretch" mt={4}>
             <Text fontWeight="bold">Generell Informasjon:</Text>
-            <Text>Dato: {parsedData.NS3459.Pristilbud.Generelt.Dato}</Text>
-            <Text>Avsender: {parsedData.NS3459.Pristilbud.Generelt.Avsender.Person.Navn}</Text>
-            <Text>Firma: {parsedData.NS3459.Pristilbud.Generelt.Avsender.Firma.Navn}</Text>
-            <Text>Program Navn: {parsedData.NS3459.Pristilbud.Generelt.ProgramNavn}</Text>
-            <Text>Program Versjon: {parsedData.NS3459.Pristilbud.Generelt.ProgramVersjon}</Text>
+            <Text>Dato: {parsedData.Generelt.Dato}</Text>
+            <Text>Avsender: {parsedData.Generelt.Avsender.Person.Navn}</Text>
+            <Text>Firma: {parsedData.Generelt.Avsender.Firma.Navn}</Text>
+            <Text>Program Navn: {parsedData.Generelt.ProgramNavn}</Text>
+            <Text>Program Versjon: {parsedData.Generelt.ProgramVersjon}</Text>
           </VStack>
         )}
-        {parsedData && <p>{parsedData.NS3459.Pristilbud.Generelt.ProgramNavn}</p>}
+        {parsedData && <p>{parsedData.Generelt.ProgramNavn}</p>}
         {parsedData && (
           <Table variant="simple">
             <Thead>
@@ -107,7 +110,7 @@ const Index = () => {
               </Tr>
             </Thead>
             <Tbody>
-              {parsedData.NS3459?.Pristilbud?.ProsjektNS?.Poster?.Post.map((post, index) => [
+              {parsedData.ProsjektNS?.Poster?.Post.map((post, index) => [
                 <Tr key={`data-${index}`}>
                   <Td>{post.Postnr}</Td>
                   <Td>{post.Tekst?.Uformatert}</Td>

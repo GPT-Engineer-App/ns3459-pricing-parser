@@ -1,4 +1,23 @@
 import React, { useState } from "react";
+const handleLogin = async (email, password) => {
+  const response = await fetch("https://mbylgzmqqwiizncgaxla.supabase.co/auth/v1/token?grant_type=password", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+      apikey: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im1ieWxnem1xcXdpaXpuY2dheGxhIiwicm9sZSI6ImFub24iLCJpYXQiOjE3MTQyMjcxNzksImV4cCI6MjAyOTgwMzE3OX0.OPRGlm-mOu1tmEzeXAOsBxjuKAYvesy1ha3C1_3ckuw",
+    },
+    body: JSON.stringify({
+      email,
+      password,
+    }),
+  });
+  const data = await response.json();
+  if (response.ok) {
+    console.log("Login successful:", data);
+  } else {
+    console.error("Login failed:", data);
+  }
+};
 import { Button, Input, VStack, Text, Heading, Table, Thead, Tbody, Tr, Th, Td, Container, Alert, AlertIcon, Image } from "@chakra-ui/react";
 import { XMLParser } from "fast-xml-parser";
 
@@ -7,6 +26,8 @@ const Index = () => {
   const [parsedData, setParsedData] = useState(null);
   const [inputs, setInputs] = useState({});
   const [error, setError] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
 
   const handleFileChange = async (event) => {
     const file = event.target.files[0];
@@ -84,6 +105,11 @@ const Index = () => {
         <Input type="file" accept=".xml" onChange={handleFileChange} />
         <Button onClick={exportToXML} colorScheme="blue">
           Export to XML
+        </Button>
+        <Input placeholder="Email" value={email} onChange={(e) => setEmail(e.target.value)} />
+        <Input placeholder="Password" type="password" value={password} onChange={(e) => setPassword(e.target.value)} />
+        <Button onClick={() => handleLogin(email, password)} colorScheme="teal">
+          Login
         </Button>
         {parsedData && (
           <VStack align="stretch" mt={4}>
